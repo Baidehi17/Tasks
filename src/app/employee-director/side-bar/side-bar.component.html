@@ -1,0 +1,8 @@
+<div class="sidebar">
+    <ul >
+        <div class="list" *ngFor="let item of sidebarmenus"><b><br>
+                {{item.label}}<br> </b>
+            <div class="list" *ngFor="let i of item.children">{{i}}</div>
+        </div>
+    </ul>
+</div>
