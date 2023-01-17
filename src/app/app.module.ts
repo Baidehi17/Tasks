@@ -4,8 +4,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { EmployeeDirectorModule } from './employee-director/employee-director.module';
+import {  EmpService} from './emService/emp.service';
+import { HttpClient, HttpClientModule } from'@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 //primeng module
 
@@ -14,6 +17,7 @@ import {MenuItem} from 'primeng/api';                  //api
 import {ToolbarModule} from 'primeng/toolbar';
 import {SplitButtonModule} from 'primeng/splitbutton';
 import {ButtonModule} from 'primeng/button';
+import {InputTextModule} from 'primeng/inputtext';
 
 @NgModule({
   declarations: [
@@ -25,14 +29,18 @@ import {ButtonModule} from 'primeng/button';
     NgbModule,
     FormsModule,
     EmployeeDirectorModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+   
+    
     ToolbarModule,
     SplitButtonModule,
     ButtonModule,
     AccordionModule,
-    
+    InputTextModule,
     
   ],
-  providers: [],
+  providers: [EmpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

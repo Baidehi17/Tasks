@@ -4,11 +4,18 @@
     padding: 0;
     width: 15%;
     background-color: #ffffff;
-    position: fixed;
+    //position: fixed;
+    float: left;
     height: 100%;
     overflow: auto;
   }
   
+  
+  .Bold{
+    font-weight: 700;
+    padding: 5px 0px 4px 0px;
+    margin: 0px;
+  }
   .list a {
     display: block;
     color: #000;
@@ -27,4 +34,5 @@
   }
   ul{
     padding:10px;
+    margin-top: -8px;
   }
