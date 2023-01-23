@@ -2,7 +2,7 @@
     <ul >
         <div class="list" *ngFor="let item of sidebarmenus"><p class="Bold">
                 {{item.label}}<br> </p>
-            <div style="cursor: context-menu;" class="list" *ngFor="let i of item.children" (click)="searchs(i)" >{{i}}</div>
+            <div  class="list" *ngFor="let e of item.children;let i=index"  (click)="searchs(e)" >{{e}}({{item.childcount[i]}}) </div>
         </div>
         
     </ul>

@@ -27,6 +27,11 @@
                             <div class="input-group">
                                 <input  class="form-control" placeholder="{{e.fristName}}" formControlName="fristName" >
                             </div>
+                            <div *ngIf="editForm.controls['fristName'].invalid && editForm.controls['fristName'].touched" class="alert alert-danger">
+                               <div *ngIf="editForm.controls['fristName'].errors">
+                                    Name is required.
+                                  </div>
+                            </div>
                             <label for="firstname">Last Name</label>
                             <div class="input-group">
                                 <input id="firstname" class="form-control" placeholder="{{e.lastName}}"  formControlName="lastName">
@@ -46,7 +51,7 @@
                                     <option value="SharePoint Practice Head">SharePoint Practice Head </option>
                                     <option value=".Net Developer Leads">.Net Developer Leads</option>
                                     <option value="Recruting Expert">Recruting Expert</option>
-                                    <option value="BI Developert">BI Developert</option>                    
+                                    <option value="BI Developer">BI Developer</option>                    
                                     <option value="Bussiness Analysis">Bussiness Analysis</option>
                                 </select>
                             </div>
@@ -56,7 +61,7 @@
                             <select id="Office" name="Office" class="form-control"  formControlName="office">
                                 <option value="" disabled selected hidden>{{e.office}}</option>
                                 <option value="India">India</option>
-                                <option value="seattle">seattle</option>
+                                <option value="Seattle">Seattle</option>
                             </select>
                             </div>
                             <label for="Department">Department  :</label>
@@ -79,14 +84,17 @@
                             </div>                            
                         </div>
                         <div class=" text-left">
-                            <button data-dismiss="modal" type="submit" class="btn btn-info mt-2" (click)="updateEmp()" >Edit</button>
+                            <button data-dismiss="modal" type="submit" class="btn btn-outline-dark mt-2 me-2" (click)="updateEmp()" >Edit</button>
+                            <button data-dismiss="modal" type="submit" class="btn btn-outline-dark mt-2 me-2" (click)="openDelete(contentDelete, e)" >Delete</button>
+                            <button type="button" class="btn btn-outline-dark mt-2 me-2" (click)="modal.close('Save click')">close</button> 
+               
                         </div>                    
                     </form>
                 </div>
-                <div class="modal-footer">
+                <!-- <div class="modal-footer">
                     <button data-dismiss="modal" type="submit" class="btn btn-outline-dark mt-2" (click)="openDelete(contentDelete, e)" >Delete</button>
                      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">close</button>    
-                </div>    
+                </div>     -->
             </ng-template>
         </div>
     </div>

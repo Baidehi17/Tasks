@@ -44,6 +44,10 @@ import { ReactiveFormsModule } from '@angular/forms';
   exports:[
     LayoutComponent,
     EmpformComponent,
+    SearchComponent,
+    SideBarComponent,
+    HeaderComponent,
+    EmpResultComponent
     
 
   ]

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EmpService } from 'src/app/emService/emp.service';
 import { Empclass } from 'src/app/emService/empclass';
+import { FilterServiceService } from 'src/app/emService/filter-service.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -11,79 +12,86 @@ export class SideBarComponent implements OnInit {
   @Output() clickedWord: EventEmitter<any> = new EventEmitter();
   @Output() searchjobs: EventEmitter<any> = new EventEmitter();
   @Input() employeeList!: Empclass[];
-  @Input() jobcount={}
-  constructor(private empservice: EmpService) {
+
+  jobcounts = {
+    IT: 0,
+    HumanResources: 0,
+    MD: 0,
+    Sales: 0,
+    Seattle: 0,
+    India: 0,
+    SharePointPracticeHead: 0,
+    DeveloperLeads: 0,
+    RecrutingExpert: 0,
+    BIDeveloper: 0,
+    BussinessAnalysis: 0
   }
+  constructor(private empservice: EmpService, private filterservice: FilterServiceService) {
+  }
+  sidebarmenus: any;
   ngOnInit(): void {
+
+    this.empservice.getAllEmployee().subscribe
+      (data => {
+        this.employeeList = data;
+
+        this.employeeList.forEach(emp => {
+          if (emp.department == 'IT') {this.jobcounts.IT++;}
+          if (emp.department == 'Human Resources') { this.jobcounts.HumanResources++; }
+          if (emp.department == "MD") { this.jobcounts.MD++ }
+          if (emp.department == "Sales") { this.jobcounts.Sales++ }
+          if (emp.office == "Seattle") { this.jobcounts.Seattle++ }
+          if (emp.office == "India") { this.jobcounts.India++ }
+          if (emp.jobTitle == "SharePoint Practice Head") { this.jobcounts.SharePointPracticeHead++ }
+          if (emp.jobTitle == ".Net Developer Leads") { this.jobcounts.DeveloperLeads++ }
+          if (emp.jobTitle == "Recruting Expert") { this.jobcounts.RecrutingExpert++ }
+          if (emp.jobTitle == "BI Developer") { this.jobcounts.BIDeveloper++ }
+          if (emp.jobTitle == "Bussiness Analysis") { this.jobcounts.BussinessAnalysis++ }
+        });
+
+        console.log(this.jobcounts.IT)
+        this.sidebarmenus = [
+          {
+
+            title: 'departments',
+            label: 'Departments',
+
+            children: [
+              'IT', 'Human Resources', 'MD', 'Sales'
+            ],
+            childcount: [this.jobcounts.IT, this.jobcounts.HumanResources, this.jobcounts.MD, this.jobcounts.Sales]
+
+          },
+          {
+            title: 'offices',
+            label: 'Offices',
+            children: [
+              'Seattle', 'India'
+            ], childcount: [this.jobcounts.Seattle, this.jobcounts.India]
+          },
+          {
+            title: 'job title',
+            label: 'Job Title',
+            children: [
+              'SharePoint Practice Head', '.Net Developer Leads', 'Recruting Expert', 'BI Developer', 'Bussiness Analysis'
+            ], childcount: [this.jobcounts.SharePointPracticeHead, this.jobcounts.DeveloperLeads, this.jobcounts.RecrutingExpert, this.jobcounts.BIDeveloper, this.jobcounts.BussinessAnalysis]
+          }
+        ]
+        this.employeeList = data;
+
+      })
+
   }
-  
-  // jobcount={
-  //   IT:0
-  // }
-  // totalcount=0;
-
-  // counting(jobcount: string)
-  // {
-  //   this.empservice.getAllEmployee().subscribe
-  //   (data=>{this.employeeList=data;
-    
-  //     const counts= this.sidebarmenus;
-
-  //     this.employeeList.filter(e=>e.department==jobcount).length;
-  //   })
-    
-  // }
-  // getcount()
-  // {
-  //   this.empservice.getAllEmployee().subscribe
-  //   (data=>{this.employeeList=data;
-      
-  //   //this.totalcount=this.employeeList.length;
-  //   //this.employeeList.f
-  //    this.employeeList.forEach(emp=>{
-  //       if(emp.department=='IT')
-  //       {
-  //         this.jobcount.IT++
-  //       }
-  
-  //    });
-     
-
-  //   })
-  // }
-  sidebarmenus = [
-    {
-      
-      title: 'departments',
-      label: 'Departments',
-      children: [
-
-        `IT` , 'Human Resources', 'MD', 'Sales'
-      ]
-    },
-    {
-      title: 'offices',
-      label: 'Offices',
-      children: [
-        'Seattle', 'India'
-      ]
-    },
-    {
-      title: 'job title',
-      label: 'Job Title',
-      children: [
-        'SharePoint Practice Head', '.Net Developer Leads', 'Recruting Expert', 'BI Developer', 'Bussiness Analysis'
-      ]
-    }
-  ]
 
   searchs(word: any) {
-    this.searchjobs.emit(word);
-
+    this.filterservice.sidemenuSearch = word;
+    this.filterservice.connectfilter();
+    //this.searchjobs.emit(word);
   }
   clicked(event: any) {
     this.clickedWord.emit(event)
   }
+
 
 }
 

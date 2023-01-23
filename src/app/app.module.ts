@@ -18,6 +18,7 @@ import {ToolbarModule} from 'primeng/toolbar';
 import {SplitButtonModule} from 'primeng/splitbutton';
 import {ButtonModule} from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
+import { FilterServiceService } from './emService/filter-service.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import {InputTextModule} from 'primeng/inputtext';
     InputTextModule,
     
   ],
-  providers: [EmpService],
+  providers: [EmpService,FilterServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

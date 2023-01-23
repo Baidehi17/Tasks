@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light  ">
     <div class="container-fluid">
-        <button pButton type="button" class="rounded-0 ps-2" icon="pi pi-user" iconPos="left" style="width: 2.5rem; height: 2.5rem;" (click)="clicked('')"></button>
+        <button pButton type="button" class="rounded-0 ps-2" icon="pi pi-user"  style="width: 2.4rem; height: 2.4rem; padding: 0.5em;" (click)="clicked('')" (click)="refreshpage()"></button>
         <button type="button" class="btn btn-primary ms-auto rounded-0" (click)="clicked(item)"
             *ngFor="let item of searchButton">{{item | uppercase}}</button>
     </div>
@@ -10,12 +10,12 @@
     <b class="ms-2 ps-2">Search : </b>
     <span class="p-input-icon-left">
         <i class="pi pi-search"></i>
-        <input type="text" class="rounded-0" pInputText placeholder="Search" style="height: 2rem; width: 9rem;" #box (keyup)="SearchWord(box.value)"/>
-        <button pButton  type="button" label="Clear" class="p-button-success ms-3 rounded-0" (click)="clicked('')" style="height: 2rem;"></button>
+        <input type="text" class="rounded-0"  pInputText placeholder="Search" style="height: 2rem; width: 9rem;" #box (keyup)="SearchWord(box.value)"/>
+        <button pButton  type="button" label="Clear" class="p-button-success ms-3 rounded-0" style="height: 2rem;" (click)="refreshpage()"></button>
     </span>
     <b class="ms-5"> Filter By : </b>
     <span class="p-input-icon-right">
-        <select #jobTitle  class="form-control rounded-0"  (click)="searchFilter(jobTitle.value)" (click)="clicked('')"> 
+        <select #jobTitle  class="form-control rounded-0"  (click)="searchFilter(jobTitle.value)" > 
             <option value="" disabled selected hidden>----Select----</option>                                              
             <option >PreferredName</option>
             <option >Name</option>
@@ -39,27 +39,40 @@
         </button>
     </div>
     <div class="modal-body">
-        <form #newemployee="ngForm" (ngSubmit)="Addnewemployee(newemployee.value)">
+        <form #newemployee="ngForm" (ngSubmit)="Addnewemployee(newemployee, newemployee.value)">
             <div class="form-group">
                 <label for="firstname">First Name</label>
                 <div class="input-group">
-                    <input id="first" placeholder="Enter Frist Name.." class="form-control" ngModel name="fristName" >
+                    <input type="text" ngModel name="fristName" #fristName="ngModel" placeholder="Enter Frist Name.." class="form-control"  [ngClass]="{ 'is-invalid': newemployee.submitted && fristName.invalid }" required>
+                    <div *ngIf="newemployee.submitted && fristName.errors" class="invalid-feedback">
+                        <div *ngIf="fristName.errors['required']">Name is required</div>
+                    </div>
                 </div>
-                <label for="firstname">Last Name</label>
+                <label for="lastName">Last Name</label>
                 <div class="input-group">
-                    <input id="last"  class="form-control" placeholder="Enter Last Name" ngModel name="lastName">
+                    <input id="last" ngModel name="lastName"  #lastName="ngModel"  class="form-control" placeholder="Enter Last Name" [ngClass]="{ 'is-invalid': newemployee.submitted && lastName.invalid }" required>
+                    <div *ngIf="newemployee.submitted && lastName.errors" class="invalid-feedback">
+                        <div *ngIf="lastName.errors['required']">Last Name is required</div>
+                    </div>
                 </div>
-                <label for="firstname">Preferred Name </label>
+                <label for="preferredName">Preferred Name </label>
                 <div class="input-group">
-                    <input id="preferred" class="form-control" placeholder="Enter Preferred Name" ngModel name="preferredName">
+                    <input #preferredName="ngModel" id="preferred" class="form-control" placeholder="Enter Preferred Name" ngModel name="preferredName" [ngClass]="{ 'is-invalid': newemployee.submitted && preferredName.invalid }" required>
+                    <div *ngIf="newemployee.submitted && preferredName.errors" class="invalid-feedback">
+                        <div *ngIf="preferredName.errors['required']">Preferred Name is required</div>
+                    </div>
                 </div>
                 <label for="email">Email</label>
                 <div class="input-group">
-                    <input  id="email" class="form-control" placeholder="Enter Email ID" ngModel name="email">
+                    <input #email="ngModel" id="email" class="form-control" placeholder="Enter Email ID" ngModel name="email" [ngClass]="{ 'is-invalid': newemployee.submitted && email.invalid }" required email>
+                    <div *ngIf="newemployee.submitted && email.errors" class="invalid-feedback">
+                        <div *ngIf="email.errors['required']">Enter Email id</div>
+                        <div *ngIf="email.errors['email']">Enter correct Email id</div>
+                    </div>
                 </div>
                 <label for="Job Title">Job Title :</label>
                 <div class="input-group">
-                    <select id="Job Title"ngModel name="jobTitle" class="form-control">                                               
+                    <select #jobTitle="ngModel" id="Job Title" ngModel name="jobTitle" class="form-control" [ngClass]="{ 'is-invalid': newemployee.submitted && jobTitle.invalid }" required>                                               
                         <option value="" disabled selected hidden>Select Job Title....</option>
                         <option value="SharePoint Practice Head">SharePoint Practice Head </option>
                         <option value=".Net Developer Leads">.Net Developer Leads</option>
@@ -67,44 +80,63 @@
                         <option value="BI Developert">BI Developert</option>                    
                         <option value="Bussiness Analysis">Bussiness Analysis</option>
                     </select>
+                    <div *ngIf="newemployee.submitted && jobTitle.errors" class="invalid-feedback">
+                        <div *ngIf="jobTitle.errors['required']">select Job Title </div>
+                    </div>
                 </div>
                 
                 <label for="Office">Office  :</label>
                 <div class="input-group">
-                <select id="Office" ngModel name="office"  class="form-control">                                           
+                <select #office="ngModel" id="Office" ngModel name="office"  class="form-control" [ngClass]="{ 'is-invalid': newemployee.submitted && office.invalid }" required>                                           
                     <option value="" disabled selected hidden>Select Office.....</option>
                     <option value="India">India</option>
                     <option value="seattle">seattle</option>
                 </select>
+                <div *ngIf="newemployee.submitted && office.errors" class="invalid-feedback">
+                    <div *ngIf="office.errors['required']">select Office </div>
+                </div>
                 </div>
                 <label for="Department">Department  :</label>
                 <div class="input-group"> 
-                <select id="Department" ngModel name="department" class="form-control">                       
+                <select #department="ngModel" id="Department" ngModel name="department" class="form-control" [ngClass]="{ 'is-invalid': newemployee.submitted && department.invalid }" required>                       
                     <option value="" disabled selected hidden>Select Department....</option>
                     <option value="IT">IT</option>
                     <option value="Human Resources">Human Resources</option>
                     <option value="MD">MD</option>
                     <option value="Sales">Sales</option>
                 </select>
+                <div *ngIf="newemployee.submitted && department.errors" class="invalid-feedback">
+                    <div *ngIf="department.errors['required']">select Department </div>
+                </div>
                 </div>
                 <label for="phonenumber">Phone Number :</label>
                 <div class="input-group">
-                    <input  id="Phone" class="form-control" placeholder="Enter Phone Number" ngModel name="phoneNumber">
+                    <input #phoneNumber="ngModel" id="Phone" class="form-control" placeholder="Enter Phone Number" ngModel name="phoneNumber" [ngClass]="{ 'is-invalid': newemployee.submitted && phoneNumber.invalid }" required number minlength="10" maxlength="10">
+                    <div *ngIf="newemployee.submitted && phoneNumber.errors" class="invalid-feedback">
+                        <div *ngIf="phoneNumber.errors['required']">Enter phone number </div>
+                        <div *ngIf="phoneNumber.errors['minlength']">enter 10 digit </div>
+                    </div>
                 </div>
                 <label for="skypeid">Skype ID</label>
                 <div class="input-group">
-                    <input id="skype" class="form-control" placeholder="Enter skypeid" ngModel name="skypeId">
+                    <input #skypeId="ngModel" id="skype" class="form-control" placeholder="Enter skypeid" ngModel name="skypeId" [ngClass]="{ 'is-invalid': newemployee.submitted && skypeId.invalid }" required minlength="4">
+                    <div *ngIf="newemployee.submitted && skypeId.errors" class="invalid-feedback">
+                        <div *ngIf="skypeId.errors['required']">Enter skypeId </div>
+                        <div *ngIf="skypeId.errors['minlength']">Minimum 4 digit </div>
+                    </div>
                 </div>
                 <div class=" text-left">
-                    <button data-dismiss="modal" class="btn btn-info mt-2 ">Submit</button>
+                    <button data-dismiss="modal" class="btn btn-outline-dark mt-2 me-2">Submit</button>      
+                <button type="button" class="btn btn-outline-dark mt-2" (click)="modal.close('Save click')" >Close</button>    
+   
                 </div>
             </div>
         </form>
     </div>
-    <div class="modal-footer">
+    <!-- <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Edit</button>       
         <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')" >Close</button>    
-    </div>    
+    </div>     -->
 </ng-template>
     
 </div>

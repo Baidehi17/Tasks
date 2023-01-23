@@ -9,9 +9,9 @@ export class EmpService {
 
   empURL='http://localhost:7215/api/Employee';
   constructor(private http:HttpClient) {}
-  getAllEmployee():Observable<any>
+  getAllEmployee():Observable<Empclass[]>
   {
-      return this.http.get(this.empURL);
+      return this.http.get<Empclass[]>(this.empURL);
   }
   AddEmployees(data:Empclass):Observable<any>
   {

@@ -1,11 +1,12 @@
 
 import { outputAst } from '@angular/compiler';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { Form, FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import { Form, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { EmpService } from './../../emService/emp.service';
 import { Empclass } from './../../emService/empclass';
 import { HttpClient } from '@angular/common/http';
+import { FilterServiceService } from 'src/app/emService/filter-service.service';
 @Component({
   selector: 'app-emp-result',
   templateUrl: './emp-result.component.html',
@@ -14,7 +15,7 @@ import { HttpClient } from '@angular/common/http';
 export class EmpResultComponent implements OnInit {
 
   //constructor(private empservice: EmpService) { }
-  @Input() employeeList!: Empclass[];
+ // @Input() employeeList!: Empclass[];
   @Input() clickedWord!: [];
   @Output() updateEmployee: EventEmitter<any> = new EventEmitter();
   @Output() forms:EventEmitter<any> = new EventEmitter();
@@ -22,9 +23,21 @@ export class EmpResultComponent implements OnInit {
   //  @ViewChild('updatemployee') form!: NgForm;
   @ViewChild('updatemployee') form!:NgForm;
   
-  constructor( private http:HttpClient ,private modelservice: NgbModal , private formbuilder:FormBuilder, private empservice:EmpService) { }
+  constructor( private http:HttpClient ,private modelservice: NgbModal , private formbuilder:FormBuilder, private empservice:EmpService,private filterservice : FilterServiceService) 
+  {
+    this.formValidation();
+   }
 
   editForm!:FormGroup;
+  employeeList=this.filterservice.employeeList;
+  
+  //form validation
+  formValidation()
+  {
+    this.editForm=this.formbuilder.group(
+      {fristName:['',Validators.required]}
+    );
+  }
   ngOnInit() : void
   {
     this.empservice.getAllEmployee().subscribe(data => {

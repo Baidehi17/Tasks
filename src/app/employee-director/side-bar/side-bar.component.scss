@@ -8,6 +8,8 @@
     float: left;
     height: 100%;
     overflow: auto;
+    cursor: pointer;
+    
   }
   
   
@@ -30,9 +32,10 @@
   
   .list a:hover:not(.active) {
     background-color: #ffffff;
-    color: white;
+    color: white; 
   }
   ul{
     padding:10px;
     margin-top: -8px;
+    
   }
