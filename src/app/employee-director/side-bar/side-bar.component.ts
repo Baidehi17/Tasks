@@ -36,7 +36,7 @@ export class SideBarComponent implements OnInit {
         this.employeeList = data;
 
         this.employeeList.forEach(emp => {
-          if (emp.department == 'IT') {this.jobcounts.IT++;}
+          if (emp.department == 'IT') { this.jobcounts.IT++; }
           if (emp.department == 'Human Resources') { this.jobcounts.HumanResources++; }
           if (emp.department == "MD") { this.jobcounts.MD++ }
           if (emp.department == "Sales") { this.jobcounts.Sales++ }
@@ -49,7 +49,6 @@ export class SideBarComponent implements OnInit {
           if (emp.jobTitle == "Bussiness Analysis") { this.jobcounts.BussinessAnalysis++ }
         });
 
-        console.log(this.jobcounts.IT)
         this.sidebarmenus = [
           {
 
@@ -78,21 +77,14 @@ export class SideBarComponent implements OnInit {
           }
         ]
         this.employeeList = data;
-
       })
+    }
 
-  }
-
-  searchs(word: any) {
-    this.filterservice.sidemenuSearch = word;
-    this.filterservice.connectfilter();
+  searchs(jobs: any) {
+    this.filterservice.jobs = jobs
+    this.filterservice.sidesearch(jobs);
     //this.searchjobs.emit(word);
   }
-  clicked(event: any) {
-    this.clickedWord.emit(event)
-  }
-
-
 }
 
 

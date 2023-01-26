@@ -15,73 +15,83 @@ import { FilterServiceService } from 'src/app/emService/filter-service.service';
 export class EmpResultComponent implements OnInit {
 
   //constructor(private empservice: EmpService) { }
- // @Input() employeeList!: Empclass[];
+  // @Input() employeeList!: Empclass[];
   @Input() clickedWord!: [];
   @Output() updateEmployee: EventEmitter<any> = new EventEmitter();
-  @Output() forms:EventEmitter<any> = new EventEmitter();
+  @Output() forms: EventEmitter<any> = new EventEmitter();
 
   //  @ViewChild('updatemployee') form!: NgForm;
-  @ViewChild('updatemployee') form!:NgForm;
-  
-  constructor( private http:HttpClient ,private modelservice: NgbModal , private formbuilder:FormBuilder, private empservice:EmpService,private filterservice : FilterServiceService) 
-  {
-    this.formValidation();
-   }
+  @ViewChild('updatemployee') form!: NgForm;
 
-  editForm!:FormGroup;
-  employeeList=this.filterservice.employeeList;
-  
+  constructor(private http: HttpClient, private modelservice: NgbModal, private formbuilder: FormBuilder, private empservice: EmpService, private filterservice: FilterServiceService) {
+    this.formValidation();
+  }
+
+  editForm!: FormGroup;
+  employeeList = this.filterservice.filterdEmplist;
+
   //form validation
-  formValidation()
-  {
-    this.editForm=this.formbuilder.group(
-      {fristName:['',Validators.required]}
+  formValidation() {
+    this.editForm = this.formbuilder.group(
+      { fristName: ['', Validators.required] }
     );
   }
-  ngOnInit() : void
-  {
+  
+  ngOnInit(): void {
+
+
     this.empservice.getAllEmployee().subscribe(data => {
-    this.employeeList = data});
-    this.editForm=this.formbuilder.group({
-      fristName :[''], 
-      lastName :[''],
-      preferredName :[''],
-      email :[''],
-      jobTitle :[''],
-      office :[''],
-      department :[''],
-      phoneNumber :[''],
-      skypeId :['']
+    this.employeeList = data
     });
-   }
-   openEdit(targetModal: any, emp:Empclass) {
+    this.filterservice.letterS.subscribe((data) => {this.employeeList = data; console.log(data)});
+    this.filterservice.inboxs.subscribe((data)=>{this.employeeList=data});
+    this.filterservice.sidesearchjobs.subscribe((data) => {this.employeeList = data; });
+    this.filterservice.dropdowns.subscribe((data)=> this.employeeList=data);
+     
+   
+
+
+
+    this.editForm = this.formbuilder.group({
+      fristName: [''],
+      lastName: [''],
+      preferredName: [''],
+      email: [''],
+      jobTitle: [''],
+      office: [''],
+      department: [''],
+      phoneNumber: [''],
+      skypeId: ['']
+    });
+  }
+  openEdit(targetModal: any, emp: Empclass) {
     this.modelservice.open(targetModal, {
       backdrop: 'static',
       size: 'lg'
     });
-    this.editForm.patchValue( {
-      fristName : emp.fristName,
-      lastName : emp.lastName,
-      preferredName : emp.preferredName,
-      email : emp.email,
-      jobTitle : emp.jobTitle,
-      office : emp.office,
-      department : emp.department,
-      phoneNumber : emp.phoneNumber,
-      skypeId : emp.skypeId,
+    this.editForm.patchValue({
+      fristName: emp.fristName,
+      lastName: emp.lastName,
+      preferredName: emp.preferredName,
+      email: emp.email,
+      jobTitle: emp.jobTitle,
+      office: emp.office,
+      department: emp.department,
+      phoneNumber: emp.phoneNumber,
+      skypeId: emp.skypeId,
     });
   }
   updateEmp() {
-    const editURL = 'http://localhost:7215/api/Employee/' + this.editForm.value.id ;
+    const editURL = 'http://localhost:7215/api/Employee/' + this.editForm.value.id;
     console.log(this.editForm.value);
     this.http.put(editURL, this.editForm.value)
-    .subscribe((results) => {
-      this.ngOnInit();
-      this.modelservice.dismissAll();
-    });
+      .subscribe((results) => {
+        this.ngOnInit();
+        this.modelservice.dismissAll();
+      });
   }
-  deleteId!:number;
-  openDelete(targetModal:any, emp:Empclass) {
+  deleteId!: number;
+  openDelete(targetModal: any, emp: Empclass) {
     this.deleteId = emp.skypeId;
     this.modelservice.open(targetModal, {
       backdrop: 'static',
