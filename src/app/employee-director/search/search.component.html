@@ -1,22 +1,26 @@
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
 <nav class="navbar navbar-expand-lg navbar-light  ">
     <div class="container-fluid">
-        <button pButton type="button" class="rounded-0 ps-2" icon="pi pi-user"  style="width: 2.4rem; height: 2.4rem; padding: 0.5em;" (click)="clicked('')" (click)="refreshpage()"></button>
-        <button type="button" class="btn btn-primary ms-auto rounded-0" (click)="clicked(item)"
+        <button pButton type="button" class="AtoZButton" icon="pi pi-user"   (click)="clicked('')" (click)="refreshpage('')"></button>
+        <button type="button" class="btn btn-primary AtoZButton" (click)="clicked(item)"
             *ngFor="let item of searchButton">{{item | uppercase}}</button>
     </div>
 </nav>
 <br>
 <div class="uflex">
-    <b class="ms-2 ps-2">Search : </b>
+    <b class="searchBy">Search : </b>
     <span class="p-input-icon-left">
         <i class="pi pi-search"></i>
-        <input type="text" class="rounded-0"  pInputText placeholder="Search" style="height: 2rem; width: 9rem;" #box (keyup)="SearchWord(box.value)"/>
-        <button pButton  type="button" label="Clear" class="p-button-success ms-3 rounded-0" style="height: 2rem;" (click)="refreshpage()"></button>
+        <input type="text" class=" inboxsearch"  pInputText placeholder="Search"  #box (keyup)="SearchWord(box.value)"/>
+        <button pButton  type="button" label="Clear" class="p-button-success clear" (click)="refreshpage('')"></button>
     </span>
-    <b class="ms-5"> Filter By : </b>
+    <b class="filterby"> Filter By : </b>
     <span class="p-input-icon-right">
         <select #jobTitle  class="form-control rounded-0"  (click)="searchFilter(jobTitle.value)" > 
-            <option value="" disabled selected hidden>----Select----</option>                                              
+            <option  disabled selected hidden>----Select----</option>                                              
             <option >PreferredName</option>
             <option >Name</option>
             <option >LastName</option>
@@ -26,8 +30,8 @@
             <option >Office</option>  
         </select>
     </span>
-    <button class="Addemp rounded-0" pButton pRipple type="button" label="Add Employee"style="height: 2rem; width: 10rem; -ms-flex-align: end;" (click)="open(content)"></button>
-    <p class="mb-0 ps-3"><b>Note</b>: Please use advance filter option to refine your result</p>
+    <button class="Addemp " pButton type="button" label="Add Employee" (click)="open(content)"></button>
+    <p class="mb-0 ps-2"><b>Note</b>: Please use advance filter option to refine your result</p>
 
 
 <!--  pop up form -->

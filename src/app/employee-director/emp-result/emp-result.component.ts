@@ -20,7 +20,6 @@ export class EmpResultComponent implements OnInit {
   @Output() updateEmployee: EventEmitter<any> = new EventEmitter();
   @Output() forms: EventEmitter<any> = new EventEmitter();
 
-  //  @ViewChild('updatemployee') form!: NgForm;
   @ViewChild('updatemployee') form!: NgForm;
 
   constructor(private http: HttpClient, private modelservice: NgbModal, private formbuilder: FormBuilder, private empservice: EmpService, private filterservice: FilterServiceService) {
@@ -43,15 +42,8 @@ export class EmpResultComponent implements OnInit {
     this.empservice.getAllEmployee().subscribe(data => {
     this.employeeList = data
     });
-    this.filterservice.letterS.subscribe((data) => {this.employeeList = data; console.log(data)});
-    this.filterservice.inboxs.subscribe((data)=>{this.employeeList=data});
-    this.filterservice.sidesearchjobs.subscribe((data) => {this.employeeList = data; });
-    this.filterservice.dropdowns.subscribe((data)=> this.employeeList=data);
-     
+    this.filterservice.connectFilter.subscribe((data) => {this.employeeList = data});
    
-
-
-
     this.editForm = this.formbuilder.group({
       fristName: [''],
       lastName: [''],

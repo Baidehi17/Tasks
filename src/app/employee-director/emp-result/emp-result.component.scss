@@ -1,39 +1,71 @@
 .div1 {
-    width: 250px;
-    height: 90px;
+    width: 21.7rem;
+    height: 7rem;
     background-color: rgb(240, 236, 236);
-    padding: 10px 10px;
+    padding: 0.8rem 0.8rem;
     display: flex;
-    align-items: center;
-    margin: 5px ;
-    
+    // align-items: center;
+    margin: 0.5rem;
 }
 
 .div2 {
-    
-    width: 70px;
-    height: 70px;
+
+    width: 6em;
+    height: 6em;
 }
-.div3{
+
+.div3 {
     display: flex;
     flex-direction: column;
+    font-size: 1.3em;
 }
-p{
-    padding:-1px;
+
+p {
+    padding: -1px;
     margin: -4px 0px 0px 10px;
 }
-i.pi{
+
+i.pi {
     font-size: 4rem;
-    color:rgba(39, 53, 53, 0.685)
+    color: rgba(39, 53, 53, 0.685)
 }
-.color
-{
+
+.color {
     color: rgb(133, 130, 130);
-    font-size: small;
+    font-size: 0.8em;
 }
-.container
-{
+
+.container-fluid {
     border-style: ridge;
-    height: 330px;
-    width: 70rem;
+    height: 24rem;
+    width: 94rem;
+    margin: 0.2rem;
+    padding-left: 2rem;
+    padding-top: 1rem;
+    overflow-x: auto;
 }
+
+@media only screen and (max-width:1280px) {
+    
+    .container-fluid {
+        height: 18rem;
+        width: 67rem;
+        margin: 0.2rem;
+        overflow-x: auto;
+    }
+    .div1{
+        width: 15rem;
+        height: 6rem;
+        padding: 0.2rem 0.2rem;
+
+    }
+    .div2
+    {
+        width: 4em;
+    }
+    .div3
+    {
+        font-size: 1.1rem;
+    }
+}
+

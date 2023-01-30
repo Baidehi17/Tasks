@@ -1,17 +1,81 @@
-.margin-left{
-    margin-left: 80px !important;
+.margin-left {
+    margin-left: 80px ;
 }
 
 
-.Addemp{
-    margin-left: 390px;
-    margin-right:0px ;
+.Addemp {
+    border-radius: 2px;
+    height: 2.5rem;
+    margin-left: 32.2rem;
+    width: 14rem;
 }
-p{
-    font-family:Verdana;
-    font-size:11px;
+
+p {
+    font-family: Verdana;
+    font-size: 0.9rem;
 }
-.pi-user
+
+.pi-user {
+    padding-right: 2rem;
+    font-size: 1.9rem;
+}
+
+.AtoZButton {
+    border-radius: 2px;
+    height: 3rem;
+    width: 3rem;
+    font-size: 1.4rem;
+}
+.filterby{
+    margin-left: 2rem;
+    margin-right: 0rem
+}
+.searchBy
 {
-    padding-right: 0.5rem;
+    margin-left: 0.6rem;
+    font-size: 1.2rem;
+}
+.inboxsearch
+{
+    height: 2.5rem;
+    width: 13rem;
+    border-radius: 2px;
+}
+select{
+    
+    height: 2.5rem;
+    width: 13rem;
+    border-radius: 2px;
+}
+.clear
+{
+    border-radius: 2px;
+    margin-left: 5rem;
+    height: 2.5rem;
+    width: 5rem;
+    font-size: 1rem
+}
+
+
+@media  screen and (max-width:1280px) {
+    .AtoZButton {
+        border-radius: 2px;
+        height: 2.2rem;
+        width: 2.2rem;
+        font-size: 1.1rem;
+    }
+    .Addemp {
+    margin-left: -0.5em;
+    }
+    .filterby{
+        font-size: 1.2rem;
+    }
+    .clear
+    {
+        margin-left: 2rem;
+    }
+    select{
+        margin-right: 7rem;
+    }
+    
 }

@@ -43,7 +43,7 @@ export class LayoutComponent implements OnInit {
   }
   //search button A to Z
   char: any;
-  // clickedWord(letter: any) {
+  // clickedWord(letter: any) { 
   //   this.char = letter;
   //   if (letter != null) {      
   //     this.filterdEmplist = this.employeeList.filter(x => x.fristName.toLowerCase().startsWith(letter));

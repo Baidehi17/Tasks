@@ -1,10 +1,15 @@
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
 <div class="sidebar ps-2">
-    <ul >
-        <div class="list" *ngFor="let item of sidebarmenus"><p class="Bold">
+    <ul>
+        <div class="list" *ngFor="let item of sidebarmenus">
+            <p class="Bold">
                 {{item.label}}<br> </p>
-            <div  class="list" *ngFor="let e of item.children;let i=index"  (click)="searchs(e)" >{{e}}({{item.childcount[i]}}) </div>
+            <div class="list" *ngFor="let e of item.children;let i=index" (click)="searchs(e)">
+                {{e}}({{item.childcount[i]}}) </div>
         </div>
-        
+
     </ul>
 </div>
-

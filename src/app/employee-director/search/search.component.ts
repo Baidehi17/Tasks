@@ -22,44 +22,41 @@ export class SearchComponent implements OnInit {
   searchButton = [
     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
   ]
-  refreshpage() {
-    this.refreshPage.emit();
+
+  refreshpage(refresh:any) {
+    this.filterservice.refreshFilter(refresh);
+   // this.refreshPage.emit();
   }
   //input Search Box
   SearchWord(value: any) {
-    this.filterservice.inboxSearch = value;
     this.filterservice.inbox(value);
     //this.searchBox.emit(value);
   }
   //dropdown
   searchFilter(jobsfilter: any) {
-   // this.filterservice.dropdownSearch = jobsfilter
     this.filterservice.dropdownsearch(jobsfilter);
-    
     //this.searchFilters.emit(jobfilter);
   }
+
   //get emp matching A TO Z
-  //letter:any;
   clicked(letter: any) {
-    //this.filterservice.letter = letter;
     this.filterservice.letterSearch(letter)
     // this.clickedWord.emit(letter)
   }
+
   //Add new employee
-  //newemployee!:NgForm
   Addnewemployee(newemployee: NgForm, data: any) {
     if (newemployee.invalid) {
       return
     }
     else if (!newemployee.invalid) {
-      this.Addemployee.emit(data);
+     // this.Addemployee.emit(data);
+     this.filterservice.addemployee(data);
       this.modelservice.dismissAll(); // dissmis the table
     }
   }
   //popup add employee form  
   closeresult!: string;
-
-
   open(content: any) {
     this.modelservice.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeresult = `Closed with: ${result}`;
