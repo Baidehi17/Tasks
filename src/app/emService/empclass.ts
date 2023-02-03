@@ -9,4 +9,5 @@ export class Empclass
     department! :string;
     phoneNumber!: string;
     skypeId! :number;
+  
 }

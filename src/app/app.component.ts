@@ -7,6 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Tasks';
-
+  searchButtons()
+  {
+    for(let i=97;i<=122;i++)
+    {
+      console.log(i)
+    }
+  }
 }
 

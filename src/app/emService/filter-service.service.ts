@@ -1,213 +1,64 @@
 import { getLocaleDateTimeFormat } from '@angular/common';
 import { Injectable, OnInit, ɵisListLikeIterable } from '@angular/core';
 import { Subject } from 'rxjs/internal/Subject';
+import { Constants } from './constants';
 import { EmpService } from './emp.service';
 import { Empclass } from './empclass';
-
 @Injectable({
   providedIn: 'root'
 })
 export class FilterServiceService implements OnInit {
   employeeList: Empclass[] = [];
+  employeeList2: Empclass[] = [];
   filterdEmplist: Empclass[] = [];
+  fields = Constants.employeeFields;
   constructor(private empservice: EmpService) { }
   ngOnInit() {
   }
 
   letterAtoZ: any;
-  dropdownSearch: any;
+  dropdownSearch!: any;
   inboxSearch: any;
   jobs: any;
 
- 
-  addemployee(employeeData:any)
-  {
-    this.empservice.AddEmployees(employeeData).subscribe(data=>{
-      this.filterdEmplist = this.employeeList; 
-      this.connectFilter.next(this.filterdEmplist) //relaod the table
+  addemployee(employeeData: any) {
+    this.empservice.AddEmployees(employeeData).subscribe(data => {
+      this.connectFilter.next(data) //relaod the table
     })
   }
-
   connectFilter = new Subject<any>();
+
   connectingFilter(para: any) {
+
     this.empservice.getAllEmployee().subscribe(data => {
-      // this.employeeList = data;
       this.filterdEmplist = this.employeeList = data;
 
-      if (this.dropdownSearch == null) {
-        if (this.letterAtoZ != null) {
-          this.filterdEmplist = this.employeeList.filter(x => x.fristName.toLowerCase().startsWith(this.letterAtoZ));
-          this.connectFilter.next(this.filterdEmplist);
-          if (this.jobs != null) {
-            this.filterdEmplist = this.employeeList.filter(x => (x.fristName.toLowerCase().startsWith(this.letterAtoZ)) && ((x.department.toLowerCase().includes(this.jobs.toLowerCase()) || (x.office.toLowerCase().includes(this.jobs.toLowerCase())) || (x.jobTitle.toLowerCase().includes(this.jobs.toLowerCase())))));
-            this.connectFilter.next(this.filterdEmplist);
-          
-          if (this.inboxSearch != null) {
-            this.filterdEmplist = this.employeeList.filter(x =>x.fristName.toLowerCase().includes(this.letterAtoZ.toLowerCase()) && x.fristName.toLowerCase().includes(this.inboxSearch.toLowerCase()) && ((x.department.toLowerCase().includes(this.jobs.toLowerCase()) || (x.office.toLowerCase().includes(this.jobs.toLowerCase())) || (x.jobTitle.toLowerCase().includes(this.jobs.toLowerCase())))));
-            this.connectFilter.next(this.filterdEmplist);}
-          }
-        }
-        if (this.jobs != null) {
-          this.filterdEmplist = this.employeeList.filter(x => (x.department.toLowerCase().includes(this.jobs.toLowerCase()) || (x.office.toLowerCase().includes(this.jobs.toLowerCase())) || (x.jobTitle.toLowerCase().includes(this.jobs.toLowerCase()))))
-          this.connectFilter.next(this.filterdEmplist);
-          if (this.letterAtoZ != null) {
-            this.filterdEmplist = this.employeeList.filter(x => (x.fristName.toLowerCase().startsWith(this.letterAtoZ)) && ((x.department.toLowerCase().includes(this.jobs.toLowerCase()) || (x.office.toLowerCase().includes(this.jobs.toLowerCase())) || (x.jobTitle.toLowerCase().includes(this.jobs.toLowerCase())))));
-            this.connectFilter.next(this.filterdEmplist);
-          }
-          if (this.inboxSearch != null) {
-            this.filterdEmplist = this.employeeList.filter(x => x.fristName.toLowerCase().includes(this.inboxSearch.toLowerCase()));
-            this.connectFilter.next(this.filterdEmplist);
-          }
-        }
-        if (this.inboxSearch != null) {
-          this.filterdEmplist = this.employeeList.filter(x => x.fristName.toLowerCase().includes(this.inboxSearch.toLowerCase()));
-          this.connectFilter.next(this.filterdEmplist);
-          if (this.letterAtoZ != null) {
-            this.filterdEmplist = this.employeeList.filter(x => x.fristName.toLowerCase().startsWith(this.letterAtoZ) && x.fristName.toLowerCase().includes(this.inboxSearch.toLowerCase()));
-            this.connectFilter.next(this.filterdEmplist);
-            if (this.jobs != null) {
-              this.filterdEmplist = this.employeeList.filter(x => (x.fristName.toLowerCase().startsWith(this.letterAtoZ)) && ((x.department.toLowerCase().includes(this.jobs.toLowerCase()) || (x.office.toLowerCase().includes(this.jobs.toLowerCase())) || (x.jobTitle.toLowerCase().includes(this.jobs.toLowerCase())))));
-              this.connectFilter.next(this.filterdEmplist);
-            }  
-          }
-          if (this.jobs != null) {
-            this.filterdEmplist = this.employeeList.filter(x => (x.department.toLowerCase().includes(this.jobs.toLowerCase()) || (x.office.toLowerCase().includes(this.jobs.toLowerCase())) || (x.jobTitle.toLowerCase().includes(this.jobs.toLowerCase()))) && x.fristName.toLowerCase().includes(this.inboxSearch.toLowerCase()) )
-            this.connectFilter.next(this.filterdEmplist);
-            if (this.letterAtoZ != null) {
-              this.filterdEmplist = this.employeeList.filter(x => x.fristName.toLowerCase().startsWith(this.letterAtoZ) && x.fristName.toLowerCase().includes(this.inboxSearch.toLowerCase()));
-              this.connectFilter.next(this.filterdEmplist);}
-          }
-        }
-      }
+      if (this.letterAtoZ != null) {
+        this.filterdEmplist = this.filterdEmplist.filter(x => x.fristName.toLowerCase().startsWith(this.letterAtoZ));}
 
-      if (this.dropdownSearch == 'Name') {
-        if (this.inboxSearch != null) {
-          this.filterdEmplist = this.employeeList.filter(x => x.fristName.toLowerCase().includes(this.inboxSearch.toLowerCase()));
-          this.connectFilter.next(this.filterdEmplist);
-          if (this.letterAtoZ != null) {
-            this.filterdEmplist = this.employeeList.filter(x => x.fristName.toLowerCase().startsWith(this.letterAtoZ) && x.fristName.toLowerCase().includes(this.inboxSearch.toLowerCase()));
-            this.connectFilter.next(this.filterdEmplist);
-            if (this.jobs != null) {
-              this.filterdEmplist = this.employeeList.filter(x => (x.fristName.toLowerCase().startsWith(this.letterAtoZ)) && ((x.department.toLowerCase().includes(this.jobs.toLowerCase()) || (x.office.toLowerCase().includes(this.jobs.toLowerCase())) || (x.jobTitle.toLowerCase().includes(this.jobs.toLowerCase())))));
-              this.connectFilter.next(this.filterdEmplist);
-            }
-          }
-        }
-        if (this.letterAtoZ != null) {
-          this.filterdEmplist = this.employeeList.filter(x => x.fristName.toLowerCase().startsWith(this.letterAtoZ));
-          this.connectFilter.next(this.filterdEmplist);
-          if (this.jobs != null) {
-            this.filterdEmplist = this.employeeList.filter(x => (x.fristName.toLowerCase().startsWith(this.letterAtoZ)) && ((x.department.toLowerCase().includes(this.jobs.toLowerCase()) || (x.office.toLowerCase().includes(this.jobs.toLowerCase())) || (x.jobTitle.toLowerCase().includes(this.jobs.toLowerCase())))));
-            this.connectFilter.next(this.filterdEmplist);
-          
-          if (this.inboxSearch != null) {
-            this.filterdEmplist = this.employeeList.filter(x =>x.fristName.toLowerCase().includes(this.letterAtoZ.toLowerCase()) && x.fristName.toLowerCase().includes(this.inboxSearch.toLowerCase()) && ((x.department.toLowerCase().includes(this.jobs.toLowerCase()) || (x.office.toLowerCase().includes(this.jobs.toLowerCase())) || (x.jobTitle.toLowerCase().includes(this.jobs.toLowerCase())))));
-            this.connectFilter.next(this.filterdEmplist);}
-          }
-        }
+      if (this.jobs != null) {
+        this.filterdEmplist = this.filterdEmplist.filter(x => (x.department.toLowerCase().includes(this.jobs.toLowerCase()) || (x.office.toLowerCase().includes(this.jobs.toLowerCase())) || (x.jobTitle.toLowerCase().includes(this.jobs.toLowerCase()))))}
+
+      if (this.dropdownSearch == null) {
+        if (this.inboxSearch != null)
+          this.filterdEmplist = this.filterdEmplist.filter(x => x.fristName.toLowerCase().includes(this.inboxSearch));}
+     
+      if (this.dropdownSearch != -1) {
+        if(this.inboxSearch!=null){
+        let prop = this.fields[this.dropdownSearch] as keyof Empclass;
+        this.filterdEmplist = this.filterdEmplist.filter((x: Empclass) => x[prop].toString().toLowerCase().includes(this.inboxSearch.toLowerCase()));}
       }
-      else if (this.dropdownSearch == 'LastName') {
-        if (this.inboxSearch != null) {
-          this.filterdEmplist = this.employeeList.filter(x => x.lastName.toLowerCase().includes(this.inboxSearch.toLowerCase()));
-          this.connectFilter.next(this.filterdEmplist);
-          if (this.letterAtoZ != null) {
-            this.filterdEmplist = this.employeeList.filter(x => x.lastName.toLowerCase().startsWith(this.letterAtoZ) && x.fristName.toLowerCase().includes(this.inboxSearch.toLowerCase()));
-            this.connectFilter.next(this.filterdEmplist);
-            if (this.jobs != null) {
-              this.filterdEmplist = this.employeeList.filter(x => (x.lastName.toLowerCase().startsWith(this.letterAtoZ)) && ((x.department.toLowerCase().includes(this.jobs.toLowerCase()) || (x.office.toLowerCase().includes(this.jobs.toLowerCase())) || (x.jobTitle.toLowerCase().includes(this.jobs.toLowerCase())))));
-              this.connectFilter.next(this.filterdEmplist);
-            }
-          }
-        }
-        if (this.letterAtoZ != null) {
-          this.filterdEmplist = this.employeeList.filter(x => x.fristName.toLowerCase().startsWith(this.letterAtoZ));
-          this.connectFilter.next(this.filterdEmplist);
-          if (this.jobs != null) {
-            this.filterdEmplist = this.employeeList.filter(x => (x.fristName.toLowerCase().startsWith(this.letterAtoZ)) && ((x.department.toLowerCase().includes(this.jobs.toLowerCase()) || (x.office.toLowerCase().includes(this.jobs.toLowerCase())) || (x.jobTitle.toLowerCase().includes(this.jobs.toLowerCase())))));
-            this.connectFilter.next(this.filterdEmplist);
-          
-          if (this.inboxSearch != null) {
-            this.filterdEmplist = this.employeeList.filter(x =>x.fristName.toLowerCase().includes(this.letterAtoZ.toLowerCase()) && x.fristName.toLowerCase().includes(this.inboxSearch.toLowerCase()) && ((x.department.toLowerCase().includes(this.jobs.toLowerCase()) || (x.office.toLowerCase().includes(this.jobs.toLowerCase())) || (x.jobTitle.toLowerCase().includes(this.jobs.toLowerCase())))));
-            this.connectFilter.next(this.filterdEmplist);}
-          }
-        }
-      }
-      else if (this.dropdownSearch == 'PreferredName') {
-        if (this.inboxSearch != null) {
-          this.filterdEmplist = this.employeeList.filter(x => x.preferredName.toLowerCase().includes(this.inboxSearch.toLowerCase()));
-          this.connectFilter.next(this.filterdEmplist);
-          if (this.letterAtoZ != null) {
-            this.filterdEmplist = this.employeeList.filter(x => x.preferredName.toLowerCase().startsWith(this.letterAtoZ) && x.fristName.toLowerCase().includes(this.inboxSearch.toLowerCase()));
-            this.connectFilter.next(this.filterdEmplist);
-            if (this.jobs != null) {
-              this.filterdEmplist = this.employeeList.filter(x => (x.preferredName.toLowerCase().startsWith(this.letterAtoZ)) && ((x.department.toLowerCase().includes(this.jobs.toLowerCase()) || (x.office.toLowerCase().includes(this.jobs.toLowerCase())) || (x.jobTitle.toLowerCase().includes(this.jobs.toLowerCase())))));
-              this.connectFilter.next(this.filterdEmplist);
-            }
-          }
-        }
-      }
-      else if (this.dropdownSearch == 'Email') {
-        if (this.inboxSearch != null) {
-          this.filterdEmplist = this.employeeList.filter(x => x.email.toLowerCase().includes(this.inboxSearch.toLowerCase()));
-          this.connectFilter.next(this.filterdEmplist);
-          if (this.letterAtoZ != null) {
-            this.filterdEmplist = this.employeeList.filter(x => x.email.toLowerCase().startsWith(this.letterAtoZ) && x.fristName.toLowerCase().includes(this.inboxSearch.toLowerCase()));
-            this.connectFilter.next(this.filterdEmplist);
-          }
-          if (this.letterAtoZ != null) {
-            this.filterdEmplist = this.employeeList.filter(x => (x.email.toLowerCase().startsWith(this.letterAtoZ)) && ((x.department.toLowerCase().includes(this.jobs.toLowerCase()) || (x.office.toLowerCase().includes(this.jobs.toLowerCase())) || (x.jobTitle.toLowerCase().includes(this.jobs.toLowerCase())))));
-            this.connectFilter.next(this.filterdEmplist);
-            if (this.jobs != null) {
-              this.filterdEmplist = this.employeeList.filter(x => (x.email.toLowerCase().startsWith(this.letterAtoZ)) && ((x.department.toLowerCase().includes(this.jobs.toLowerCase()) || (x.office.toLowerCase().includes(this.jobs.toLowerCase())) || (x.jobTitle.toLowerCase().includes(this.jobs.toLowerCase())))));
-              this.connectFilter.next(this.filterdEmplist);
-              
-            }
-          }
-        }
-      }
-      else if (this.dropdownSearch == 'Department') {
-        if (this.inboxSearch != null) {
-          this.filterdEmplist = this.employeeList.filter(x => x.department.toLowerCase().includes(this.inboxSearch));
-          this.connectFilter.next(this.filterdEmplist);
-          if(this.letterAtoZ!=null)
-          {
-            this.filterdEmplist=this.employeeList.filter(x=> x.department.toLowerCase().includes(this.inboxSearch) && x.fristName.toLowerCase().startsWith(this.letterAtoZ))
-            this.connectFilter.next(this.filterdEmplist);
-          }
-        }
-      }
-      else if (this.dropdownSearch == 'jobTitle') {
-        if (this.inboxSearch != null) {
-          this.filterdEmplist = this.employeeList.filter(x => x.jobTitle.toLowerCase().includes(this.inboxSearch));
-          this.connectFilter.next(this.filterdEmplist);
-          if(this.letterAtoZ!=null)
-          {
-            this.filterdEmplist=this.employeeList.filter(x=> x.jobTitle.toLowerCase().includes(this.inboxSearch) && (x.fristName.toLowerCase().startsWith(this.letterAtoZ)))
-            this.connectFilter.next(this.filterdEmplist);
-          }
-        }
-      }
-      else if (this.dropdownSearch == 'Office') {
-        if (this.inboxSearch != null) {
-          this.filterdEmplist = this.employeeList.filter(x => x.office.toLowerCase().includes(this.inboxSearch));
-          this.connectFilter.next(this.filterdEmplist);
-          if(this.letterAtoZ!=null)
-          {
-            this.filterdEmplist=this.employeeList.filter(x=> x.office.toLowerCase().includes(this.inboxSearch) && x.fristName.toLowerCase().startsWith(this.letterAtoZ))
-            this.connectFilter.next(this.filterdEmplist);
-          }
-        }
-      }
+      this.connectFilter.next(this.filterdEmplist);
     })
   }
 
   refreshFilter(refresh: any) {
-    this.filterdEmplist = this.employeeList;
-    this.connectFilter.next(this.filterdEmplist)
     if (refresh == '') {
+      this.filterdEmplist=this.employeeList;
+      this.connectFilter.next(this.filterdEmplist);
       this.letterAtoZ = null;
       this.inboxSearch = null;
-      this.dropdownSearch = null;
+      this.dropdownSearch=null;
       this.jobs = null;
     }
   }
