@@ -34,14 +34,14 @@ export class FilterServiceService implements OnInit {
       this.filterdEmplist = this.employeeList = data;
 
       if (this.letterAtoZ != null) {
-        this.filterdEmplist = this.filterdEmplist.filter(x => x.fristName.toLowerCase().startsWith(this.letterAtoZ));}
+        this.filterdEmplist = this.filterdEmplist.filter(x =>( x.firstName.toLowerCase().startsWith(this.letterAtoZ)));}
 
       if (this.jobs != null) {
         this.filterdEmplist = this.filterdEmplist.filter(x => (x.department.toLowerCase().includes(this.jobs.toLowerCase()) || (x.office.toLowerCase().includes(this.jobs.toLowerCase())) || (x.jobTitle.toLowerCase().includes(this.jobs.toLowerCase()))))}
 
       if (this.dropdownSearch == null) {
         if (this.inboxSearch != null)
-          this.filterdEmplist = this.filterdEmplist.filter(x => x.fristName.toLowerCase().includes(this.inboxSearch));}
+          this.filterdEmplist = this.filterdEmplist.filter(x => x.firstName.toLowerCase().includes(this.inboxSearch));}
      
       if (this.dropdownSearch != -1) {
         if(this.inboxSearch!=null){

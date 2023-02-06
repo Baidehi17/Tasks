@@ -11,8 +11,23 @@
   <app-search class="mb-5" ></app-search>
   <app-emp-result ></app-emp-result>
 </div>
-
-<!--<app-empform></app-empform>-->
 <router-outlet></router-outlet>
+
+
+
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title" >{{empId?'Edit':'Add'}} Employee</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+    <app-add-edit-employee [empId]="empId" (saveForm)="onSave()"></app-add-edit-employee>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">close</button>
+  </div>
+</ng-template>
+
+
 
 

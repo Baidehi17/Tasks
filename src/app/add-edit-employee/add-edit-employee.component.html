@@ -1,0 +1,109 @@
+
+
+<form #form="ngForm" (ngSubmit)="submit(form)">
+    <div class="form-group">
+        <label for="firstname">First Name</label>
+        <div class="input-group">
+            <input type="text" [(ngModel)]="employee.firstName" name="firstName" #firstName="ngModel"
+                placeholder="Enter First Name.." class="form-control"
+                [ngClass]="{ 'is-invalid': firstName.touched && firstName.dirty && firstName.invalid}" required>
+            <div *ngIf="firstName.touched && firstName.errors" class="invalid-feedback">
+                <div *ngIf="firstName.errors['required']">Name is required</div>
+            </div>
+        </div>
+        <label for="lastName">last Name</label>
+        <div class="input-group">
+            <input type="text" [(ngModel)]="employee.lastName" name="lastName" #lastName="ngModel"
+                placeholder="Enter Last Name.." class="form-control"
+                [ngClass]="{ 'is-invalid': lastName.touched && lastName.dirty && lastName.invalid}" required>
+            <div *ngIf="lastName.touched && lastName.errors" class="invalid-feedback">
+                <div *ngIf="lastName.errors['required']">Name is required</div>
+            </div>
+        </div>
+        <label for="preferredName">Preferred Name</label>
+        <div class="input-group">
+            <input type="text" [(ngModel)]="employee.preferredName" name="preferredName" #preferredName="ngModel"
+                placeholder="Enter Preferred Name.." class="form-control"
+                [ngClass]="{ 'is-invalid': preferredName.touched && preferredName.dirty && preferredName.invalid}"
+                required>
+            <div *ngIf="preferredName.touched && preferredName.errors" class="invalid-feedback">
+                <div *ngIf="preferredName.errors['required']">Name is required</div>
+            </div>
+        </div>
+        <label for="email">Email Id</label>
+        <div class="input-group">
+            <input type="text" [(ngModel)]="employee.email" name="email" #email="ngModel" placeholder="Enter Email id"
+                class="form-control" [ngClass]="{ 'is-invalid': email.touched && email.dirty && email.invalid}"
+                required>
+            <div *ngIf="email.touched && email.errors" class="invalid-feedback">
+                <div *ngIf="email.errors['required']">Name is required</div>
+            </div>
+        </div>
+        <label for="jobTitle">Job Title :</label>
+        <div class="input-group">
+            <select type="text" [(ngModel)]="employee.jobTitle" name="jobTitle" #jobTitle="ngModel"
+                placeholder="Enter jobTitle.." class="form-control"
+                [ngClass]="{ 'is-invalid': jobTitle.touched && jobTitle.dirty && jobTitle.invalid}" required>
+                <option value="" disabled selected hidden>Select Job Title....</option>
+                <option value="SharePoint Practice Head">SharePoint Practice Head </option>
+                <option value=".Net Developer Leads">.Net Developer Leads</option>
+                <option value="Recruting Expert">Recruting Expert</option>
+                <option value="BI Developert">BI Developert</option>
+                <option value="Bussiness Analysis">Bussiness Analysis</option>
+            </select>
+            <div *ngIf="jobTitle.touched && jobTitle.errors" class="invalid-feedback">
+                <div *ngIf="jobTitle.errors['required']">Name is required</div>
+            </div>
+        </div>
+        <label for="Office">Office :</label>
+        <div class="input-group">
+            <select type="text" [(ngModel)]="employee.office" name="Office" #Office="ngModel"
+                placeholder="Enter Office.." class="form-control"
+                [ngClass]="{ 'is-invalid': Office.touched && Office.dirty && Office.invalid}" required>
+                <option value="" disabled selected hidden>Select Office.....</option>
+                <option value="India">India</option>
+                <option value="seattle">seattle</option>
+            </select>
+            <div *ngIf="Office.touched && Office.errors" class="invalid-feedback">
+                <div *ngIf="Office.errors['required']">Name is required</div>
+            </div>
+        </div>
+        <label for="department">Department :</label>
+        <div class="input-group">
+            <select type="text" [(ngModel)]="employee.department" name="department" #department="ngModel"
+                placeholder="Enter department.." class="form-control"
+                [ngClass]="{ 'is-invalid': department.touched && department.dirty && department.invalid}" required>
+                <option value="" disabled selected hidden>Select Department....</option>
+                <option value="IT">IT</option>
+                <option value="Human Resources">Human Resources</option>
+                <option value="MD">MD</option>
+                <option value="Sales">Sales</option>
+            </select>
+            <div *ngIf="department.touched && department.errors" class="invalid-feedback">
+                <div *ngIf="department.errors['required']">Name is required</div>
+            </div>
+        </div>
+        <label for="phoneNumber">Phone Number :</label>
+        <div class="input-group">
+            <input type="text" [(ngModel)]="employee.phoneNumber" name="phoneNumber" #phoneNumber="ngModel"
+                placeholder="Enter phoneNumber.." class="form-control"
+                [ngClass]="{ 'is-invalid': phoneNumber.touched && phoneNumber.dirty && phoneNumber.invalid}" required>
+            <div *ngIf="phoneNumber.touched && phoneNumber.errors" class="invalid-feedback">
+                <div *ngIf="phoneNumber.errors['required']">Name is required</div>
+            </div>
+        </div>
+
+        <label for="skypeId">Skype ID</label>
+        <div class="input-group">
+            <input type="text" [(ngModel)]="employee.skypeId" name="skypeId" #skypeId="ngModel"
+                placeholder="Enter skypeId.." class="form-control"
+                [ngClass]="{ 'is-invalid': skypeId.touched && skypeId.invalid}" required>
+                <div *ngIf="skypeId.touched && skypeId.errors" class="invalid-feedback">
+                <div *ngIf="skypeId.errors['required']">Enter skypeId </div>
+                <div *ngIf="skypeId.errors['minlength']">Minimum 4 digit </div>
+            </div>
+        </div>
+        <button type="submit" data-dismiss="modal" [disabled]="!form.valid" class="btn btn-outline-dark mt-2 me-2" >{{empId?'Edit':'Add'}}</button>
+        <button type="button" data-dismiss="modal" class="btn btn-outline-danger mt-2 me-2" (click)="delete()" *ngIf="empId">Delete</button>
+    </div>
+</form>

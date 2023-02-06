@@ -9,8 +9,6 @@ import { FilterServiceService } from 'src/app/emService/filter-service.service';
   styleUrls: ['./side-bar.component.scss']
 })
 export class SideBarComponent implements OnInit {
-  @Output() clickedWord: EventEmitter<any> = new EventEmitter();
-  @Output() searchjobs: EventEmitter<any> = new EventEmitter();
   @Input() employeeList!: Empclass[];
 
   jobcounts = {
@@ -83,7 +81,6 @@ export class SideBarComponent implements OnInit {
   searchs(jobs: any) {
     this.filterservice.jobs = jobs
     this.filterservice.sidesearch(jobs);
-    //this.searchjobs.emit(word);
   }
 }
 

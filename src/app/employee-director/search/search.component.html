@@ -23,12 +23,15 @@
             <option disabled selected hidden>--Select--</option>
             <option *ngFor="let item of fields; let i=index" [ngValue]="i" >{{titleCase(item)}}</option> </select>
     </span>
-    <button class="Addemp " pButton type="button" label="Add Employee" (click)="open(content)"></button>
+    <button class="Addemp " pButton type="button" label="Add Employee" (click)="open()"></button>
+    
     <p class="mb-0 ps-2"><b>Note</b>: Please use advance filter option to refine your result</p>
 
-
+    
+        
+    
     <!--  pop up form -->
-    <ng-template #content let-modal>
+    <!-- <ng-template #content let-modal>
         <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">New Employee</h4>
             <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -151,6 +154,6 @@
         <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Edit</button>       
         <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')" >Close</button>    
     </div>     -->
-    </ng-template>
+    <!-- </ng-template> --> 
 
 </div>
