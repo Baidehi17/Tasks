@@ -15,7 +15,6 @@ export class AddEditEmployeeComponent implements OnInit, OnChanges {
   @Input() empId: number = 0;
   @Output() saveForm = new EventEmitter<any>();
   employee: Empclass = new Empclass();
-  deleteflag: boolean = false;
 
   constructor(private empService: EmpService,
     private modelservice: NgbModal) {
@@ -24,13 +23,12 @@ export class AddEditEmployeeComponent implements OnInit, OnChanges {
   ngOnInit() {
   }
 
-  ngOnChanges(): void {
+  ngOnChanges(change : SimpleChanges): void {
     this.loadData();
   }
 
   loadData() {
     if (this.empId) {
-      this.deleteflag = true;
       this.empService.getEmpById(this.empId).subscribe(res => {
         this.employee = res;
         console.log(this.employee, res);

@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, NgForm } from '@angular/forms';
 import { EmployeeDirectorModule } from './employee-director/employee-director.module';
-import {  EmpService} from './emService/emp.service';
+import { EmpService} from './emService/emp.service';
 import { HttpClientModule } from'@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -32,8 +32,7 @@ import { AddEditEmployeeComponent } from './add-edit-employee/add-edit-employee.
     FormsModule,
     EmployeeDirectorModule,
     HttpClientModule,
-    ReactiveFormsModule,
-   
+    ReactiveFormsModule,   
     
     ToolbarModule,
     SplitButtonModule,
