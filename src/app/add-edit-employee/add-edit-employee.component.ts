@@ -13,7 +13,7 @@ import { EventService } from '../emService/eventService';
 })
 export class AddEditEmployeeComponent implements OnInit, OnChanges {
   @Input() empId: number = 0;
-  @Output() saveForm = new EventEmitter<any>();
+  //@Output() saveForm = new EventEmitter<any>();
   employee: Empclass = new Empclass();
 
   constructor(private empService: EmpService,
@@ -31,7 +31,6 @@ export class AddEditEmployeeComponent implements OnInit, OnChanges {
     if (this.empId) {
       this.empService.getEmpById(this.empId).subscribe(res => {
         this.employee = res;
-        console.log(this.employee, res);
       },
         err => {
           console.log(err);
